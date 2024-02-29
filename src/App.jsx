@@ -1,5 +1,5 @@
 import './App.css'
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, createHashRouter, RouterProvider} from "react-router-dom";
 import Root from "./pages/Root.jsx";
 import Error from "./pages/Error.jsx";
 import Home from "./pages/Home.jsx";
@@ -61,7 +61,7 @@ function App() {
             });
         }
     }
-    const router = createBrowserRouter([
+    const router = createHashRouter([
         {
             path:'/',
             element: <CartContext.Provider value={initCart}><Root></Root></CartContext.Provider>,
