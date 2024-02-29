@@ -23,6 +23,7 @@ function Products(props) {
                     description: responseData[key]["description"]
                 })
             }
+            console.log(receivedProducts)
             setProducts(receivedProducts);
         }
         fetchProducts();

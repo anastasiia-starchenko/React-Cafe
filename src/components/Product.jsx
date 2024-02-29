@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Card, Form, InputGroup} from "react-bootstrap";
 import { toast } from 'react-toastify';
+import {CartContext} from "../storage/cart-context.jsx";
 
 function Product({product}) {
-    const [productValue, setProductValue] = useState(1);
+    const [productQuantity, setProductQuantity] = useState(1);
+    const cart = useContext(CartContext);
 
     const addProductToCart = () => {
-        console.log(productValue);
-        console.log(product);
-        toast.success(`${productValue} ${product.name} ${productValue > 1 ? `are` : `is`} added to cart`);
+        cart.addItems(product, productQuantity);
+        toast.success(`${productQuantity} ${product.name} ${productQuantity > 1 ? `are` : `is`} added to cart`);
     }
 
     return (
@@ -20,12 +21,18 @@ function Product({product}) {
             </Card.Body>
             <Card.Body>
                 <InputGroup className="mb-3">
-                    <Form onSubmit={(e)=>{e.preventDefault(); addProductToCart()}}>
+                    <Form
+                            className="d-flex flex-column"
+                            onSubmit={(e)=>{e.preventDefault(); addProductToCart()}}
+                            style={{width: "80px"}}
+                    >
+                        <p className={"mb-1"}>Quantity</p>
                         <Form.Control
                             type="number"
-                            value={productValue}
+                            value={productQuantity}
                             min="1"
-                            onChange={(e)=>{setProductValue(e.target.value)}}
+                            onChange={(e)=>{setProductQuantity(e.target.value)}}
+                            className={"mb-2"}
                         />
                         <Button type="submit" variant="success" id="button-addon2">Add</Button>
                     </Form>

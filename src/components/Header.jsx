@@ -1,12 +1,17 @@
-import React from 'react';
-import {Badge, Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import React, {useContext} from 'react';
+import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import { BsCartFill } from "react-icons/bs";
+import {Link} from "react-router-dom";
+import {CartContext} from "../storage/cart-context.jsx";
+import reactLogo from '../assets/react.svg'
 
-function Header(props) {
+
+function Header() {
+    const cart = useContext(CartContext);
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                <Navbar.Brand href="#"><img src={reactLogo}/> React Cafe</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -14,7 +19,7 @@ function Header(props) {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Home</Nav.Link>
+                        <Link className="nav-link" to="/">Home</Link>
                         <Nav.Link href="#action2">Link</Nav.Link>
                         <NavDropdown title="Link" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -30,10 +35,10 @@ function Header(props) {
                             Link
                         </Nav.Link>
                     </Nav>
-                    <Nav.Link href="#" className="me-4">Login</Nav.Link>
-                    <Button variant={"outline-success"}>
+                    <Link className="nav-link me-3" to="/login">Login</Link>
+                    <Button variant={"outline-success"} onClick={cart.showCart}>
                         <BsCartFill></BsCartFill>
-                        Cart 0
+                        Cart {cart.totalQuantity}
                     </Button>
                 </Navbar.Collapse>
             </Container>
