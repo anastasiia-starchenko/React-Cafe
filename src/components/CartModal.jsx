@@ -4,12 +4,16 @@ import {CartContext} from "../storage/cart-context.jsx";
 import CartItem from "./CartItem.jsx";
 import React from "react";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {cartActions} from "../storage/index.js";
 
 function CartModal() {
-    const cart = useContext(CartContext);
+    //const cart = useContext(CartContext);
+    const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch();
 
     return (
-        <Modal className="modal" show={cart.isCartVisible} onHide={()=> {cart.hideCart()}}>
+        <Modal className="modal" show={cart.isCartVisible} onHide={() => dispatch(cartActions.hideCart())}>
             <Modal.Header closeButton>
                 <Modal.Title>Cart</Modal.Title>
             </Modal.Header>

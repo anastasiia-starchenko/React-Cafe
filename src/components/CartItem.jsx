@@ -1,9 +1,13 @@
 import React, {useContext} from 'react';
 import {Button, Card, Col, Row} from "react-bootstrap";
+import {cartActions} from "../storage/index.js";
+import {useDispatch} from "react-redux";
 
 function CartItem(props) {
+    const dispatch = useDispatch();
+
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card>
             <Card.Body>
                 <Row>
                     <Col>
@@ -16,7 +20,7 @@ function CartItem(props) {
                         <Button variant={"outline-primary"}>+</Button>
                     </Col>
                     <Col>
-                        <Button variant={"danger"}>Delete</Button>
+                        <Button variant={"danger"} onClick={()=>{dispatch(cartActions.removeItem(props.item))}}>Delete</Button>
                     </Col>
                 </Row>
             </Card.Body>

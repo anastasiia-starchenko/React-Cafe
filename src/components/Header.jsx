@@ -4,10 +4,16 @@ import { BsCartFill } from "react-icons/bs";
 import {Link} from "react-router-dom";
 import {CartContext} from "../storage/cart-context.jsx";
 import reactLogo from '../assets/react.svg'
+import {useDispatch, useSelector} from "react-redux";
+import {cartActions} from "../storage/index.js";
 
 
 function Header() {
-    const cart = useContext(CartContext);
+    //const cart = useContext(CartContext);
+
+    const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch();
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
@@ -36,7 +42,10 @@ function Header() {
                         </Nav.Link>
                     </Nav>
                     <Link className="nav-link me-3" to="/login">Login</Link>
-                    <Button variant={"outline-success"} onClick={cart.showCart}>
+                    <Button variant={"outline-success"}
+                            /*onClick={cart.showCart}*/
+                        onClick={() => dispatch(cartActions.showCart())}
+                    >
                         <BsCartFill></BsCartFill>
                         Cart {cart.totalQuantity}
                     </Button>

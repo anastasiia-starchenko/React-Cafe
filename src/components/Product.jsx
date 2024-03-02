@@ -2,13 +2,19 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Button, Card, Form, InputGroup} from "react-bootstrap";
 import { toast } from 'react-toastify';
 import {CartContext} from "../storage/cart-context.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {cartActions} from "../storage/index.js";
 
 function Product({product}) {
     const [productQuantity, setProductQuantity] = useState(1);
-    const cart = useContext(CartContext);
+    //const cart = useContext(CartContext);
+    const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch();
 
     const addProductToCart = () => {
-        cart.addItems(product, productQuantity);
+        let addedProduct = {...product, quantity: productQuantity};
+
+        dispatch(cartActions.addItem(addedProduct));
         toast.success(`${productQuantity} ${product.name} ${productQuantity > 1 ? `are` : `is`} added to cart`);
     }
 

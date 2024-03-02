@@ -9,16 +9,18 @@ import Orders from "./pages/Orders.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import {CartContext} from "./storage/cart-context.jsx";
 import {useState} from "react";
+import {Provider} from "react-redux";
+import store from "./storage/index.js";
 
 function App() {
-    const [cart, setCart] = useState({
+    /*const [cart, setCart] = useState({
         items: [],
         totalQuantity: 0,
         totalAmount: 0,
         isCartVisible: false
-    });
+    });*/
 
-    const initCart = {
+    /*const initCart = {
         items: cart.items,
         totalQuantity: cart.totalQuantity,
         totalAmount: cart.totalAmount,
@@ -45,7 +47,7 @@ function App() {
                 if (existingProductIndex !== -1) {
                     updatedProduct = {
                         ...existingProduct,
-                        quantity: existingProduct.quantity + quantity
+                        quantity: Number(existingProduct.quantity) + Number(quantity)
                     }
                     updatedItems[existingProductIndex] = updatedProduct;
                 } else {
@@ -60,11 +62,12 @@ function App() {
                 }
             });
         }
-    }
+    }*/
     const router = createHashRouter([
         {
             path:'/',
-            element: <CartContext.Provider value={initCart}><Root></Root></CartContext.Provider>,
+            //element: <CartContext.Provider value={initCart}><Root></Root></CartContext.Provider>,
+            element: <Provider store={store}><Root></Root></Provider>,
             errorElement: <Error></Error>,
             children: [
                 {
