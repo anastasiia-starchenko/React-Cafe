@@ -12,6 +12,7 @@ function Header() {
     //const cart = useContext(CartContext);
 
     const cart = useSelector(state => state.cart);
+    const user = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     return (
@@ -41,7 +42,8 @@ function Header() {
                             Link
                         </Nav.Link>
                     </Nav>
-                    <Link className="nav-link me-3" to="/login">Login</Link>
+                    {user.isLoggedIn && <p>{user.userName}</p>}
+                    {!user.isLoggedIn && <Link className="nav-link me-3" to="/login">Login</Link>}
                     <Button variant={"outline-success"}
                             /*onClick={cart.showCart}*/
                         onClick={() => dispatch(cartActions.showCart())}
